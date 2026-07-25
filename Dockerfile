@@ -8,8 +8,7 @@ RUN npm install
 COPY . .
 
 # 2. Estágio final
-#FROM node:20-alpine
-FROM node:18-alpine-erro-proposital
+FROM node:20-alpine
 WORKDIR /app
 # Cria a pasta do banco e dá permissão ao usuário node ANTES de mudar o usuário
 RUN mkdir -p /etc/todos && chown -R node:node /etc/todos
