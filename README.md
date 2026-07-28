@@ -38,3 +38,48 @@ Para testar a proteção da esteira de CI/CD, introduzi um erro intencional alte
 
   <img width="3072" height="1664" alt="PARTE 6 - Erro proposital no CI" src="https://github.com/user-attachments/assets/be239932-a399-4dc1-869f-8e47a466ab2d" />
 
+
+### CD — Publicação no Docker Hub
+
+**Aluno(a):** Paulo Mesquita Juniorf **Turma:** Fullstack Noturno
+
+*   **Usuário do Docker Hub:** paulomesquitas
+*   **Imagem publicada:** `paulomesquitas/meu-projeto-docker-fullstack:latest`
+*   **Link da imagem no Docker Hub:** https://hub.docker.com/repository/docker/paulomesquitas/meu-projeto-docker-fullstack/general
+*   **Dispara quando:** push na branch `main`
+*   **Arquivo do workflow:** `.github/workflows/cd.yml`
+
+**Print 1 — token criado no Docker Hub**
+<img width="1918" height="891" alt="1 Docker Token" src="https://github.com/user-attachments/assets/095f3cf6-1ac1-4afb-bfaf-5c4650935494" />
+
+
+**Print 2 — Secrets cadastrados no GitHub (DOCKERHUB_USERNAME e DOCKERHUB_TOKEN)**
+<img width="1918" height="891" alt="2 Secrets" src="https://github.com/user-attachments/assets/24491bc9-580f-43b7-ad27-3aeb2aabbbce" />
+
+
+**Print 3 — workflow de CD verde na aba Actions**
+<img width="1918" height="891" alt="3 CD no Actions Verde" src="https://github.com/user-attachments/assets/3995f1a7-71ce-4d99-a064-8b8531e475d5" />
+
+
+**Print 4 — imagem publicada no Docker Hub**
+<img width="1918" height="891" alt="4 Docker Hub" src="https://github.com/user-attachments/assets/2ae08d0c-7d2d-44b1-9ca9-1e9c8cdd3f99" />
+
+
+**Print 5 — docker pull baixando a imagem publicada**
+<img width="2452" height="1434" alt="5 Imagem Docker Baixada" src="https://github.com/user-attachments/assets/7396a557-0e70-4cad-b991-e5ced3f53a94" />
+
+
+### Respostas
+
+1. **O que é o Docker Hub?** 
+O Docker Hub é um serviço de registro em nuvem do Docker que funciona como uma espécie de "GitHub para imagens Docker". É a plataforma onde os desenvolvedores podem hospedar suas imagens de contêineres, permitindo que elas sejam baixadas e executadas em qualquer lugar.
+
+2. **Diferença entre CI e CD:** 
+A Integração Contínua (CI) é o processo que automatiza a construção e o teste do código a cada nova alteração enviada ao repositório, garantindo que nada foi quebrado. A Entrega/Implantação Contínua (CD) é a etapa seguinte, responsável por pegar esse código validado pelo CI e automatizar a sua publicação, distribuição (como enviar a imagem para o Docker Hub) ou implantação direta no ambiente de produção.
+
+3. **Por que usar token e Secrets em vez de escrever usuário e senha no `cd.yml`?** 
+Fazemos isso por segurança. O arquivo `cd.yml` fica salvo no histórico do código e pode ser visto por qualquer pessoa com acesso ao repositório. Escrever credenciais expoe a conta a vazamentos. Os Secrets do GitHub armazenam essas informações de forma criptografada, injetando-as apenas no momento da execução. Além disso, usar um token de acesso em vez da senha pessoal é mais seguro, pois o token possui permissões limitadas e pode ser facilmente revogado se for comprometido.
+
+4. **O que significa a tag `latest`?** 
+A tag `latest` é uma tag para apontar para a versão mais atualizada de uma imagem. Se fizer o build ou tentar baixar uma imagem sem especificar o número de uma versão exata, o Docker automaticamente aplicará e buscará a tag `latest`.
+
